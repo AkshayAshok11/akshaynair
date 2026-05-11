@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akshay Ashok Nair</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #08090d;
+      --surface: #0f1117;
+      --border: #1e2130;
+      --accent: #5bffc8;
+      --accent2: #7b8cff;
+      --text: #e8eaf2;
+      --muted: #636880;
+      --mono: 'Space Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(91,255,200,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(91,255,200,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(8,9,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.2s forwards;
+    }
+
+    .hero-name {
+      font-family: var(--mono);
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+
+    .hero-name span { color: var(--accent); }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.6s forwards;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.8s forwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.4rem;
+      border-radius: 4px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #08090d;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      background: #fff;
+      box-shadow: 0 0 24px rgba(91,255,200,0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent2);
+      border: 1px solid var(--accent2);
+    }
+
+    .btn-outline:hover {
+      background: rgba(123,140,255,0.1);
+      box-shadow: 0 0 18px rgba(123,140,255,0.25);
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 4rem;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: var(--mono);
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      color: var(--text);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 4rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .stat-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .stat-value {
+      font-family: var(--mono);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── EXPERIENCE ── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateX(-16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.4rem; top: 8px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .timeline-date {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent2);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-role {
+      font-family: var(--mono);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.1rem;
+    }
+
+    .timeline-org {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .timeline-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .timeline-bullets li {
+      font-size: 0.9rem;
+      color: #9ba0b4;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .timeline-bullets li::before {
+      content: '›';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.75rem;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .project-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-card:hover {
+      border-color: var(--accent2);
+      box-shadow: 0 8px 40px rgba(123,140,255,0.12);
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.67rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+      background: rgba(91,255,200,0.07);
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      border: 1px solid rgba(91,255,200,0.18);
+    }
+
+    .project-title {
+      font-family: var(--mono);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .skill-group-title {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      font-size: 0.82rem;
+      color: #9ba0b4;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.2rem 0.6rem;
+    }
+
+    /* ── PUBLICATION ── */
+    .pub-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .pub-title {
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .pub-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .pub-link {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent2);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+
+    .pub-link:hover { text-decoration: underline; }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; }
+
+    #contact .section-wrap { padding-bottom: 6rem; }
+
+    .contact-text {
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      #hero, .section-wrap { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .divider { margin: 0 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-name { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">AAN_</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-tag">// ECE Student @ University of Washington</div>
+    <h1 class="hero-name">Akshay<br/><span>Ashok Nair</span></h1>
+    <p class="hero-sub">ML researcher &amp; ECE engineer building AI systems at the edge — from cancer detection to autonomous robotics.</p>
+    <div class="hero-links">
+      <a class="btn btn-primary" href="mailto:aashok2@uw.edu">aashok2@uw.edu</a>
+      <a class="btn btn-outline" href="https://www.linkedin.com/in/akshay-nair" target="_blank">LinkedIn</a>
+      <a class="btn btn-outline" href="https://github.com/AkshayAshok11" target="_blank">GitHub</a>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-wrap">
+      <div class="section-label">01 / About</div>
+      <h2 class="section-title">Who I Am</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm an ECE student at the University of Washington (GPA 3.7, graduating June 2027), focused on the intersection of machine learning, computer vision, and embedded systems.</p>
+          <p>My work spans from training CNNs on clinical flow cytometry data to programming FPGAs for real-time robotics. I enjoy solving hard problems across the full stack — from model architecture to hardware constraints.</p>
+          <p>I'm a published first-author researcher, a project lead managing 15 engineers, and a builder who ships real systems with measurable results.</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value">3.7</div>
+            <div class="stat-label">GPA — UW ECE</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">95%</div>
+            <div class="stat-label">Edge ML Accuracy</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">0.73</div>
+            <div class="stat-value" style="font-size:1rem;color:var(--muted);margin-top:-0.5rem">AUROC</div>
+            <div class="stat-label">Cancer Prediction Model</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">1st</div>
+            <div class="stat-label">Author Publication — Frontiers in Medicine</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-wrap">
+      <div class="section-label">02 / Experience</div>
+      <h2 class="section-title">Where I've Worked</h2>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-date">Jan 2026 – Present</div>
+          <div class="timeline-role">Research Assistant</div>
+          <div class="timeline-org">Foy Lab — University of Washington</div>
+          <ul class="timeline-bullets">
+            <li>Trained a CellCNN-style CNN on 2,000 patient samples to predict ER status from flow cytometry data, achieving AUROC 0.73</li>
+            <li>Built a dual-backend architecture with a shared pipeline feeding both a Keras CNN and a CytoDx R model</li>
+            <li>Ensured reproducibility via stratified splits, z-score normalization, and parameter-encoded disk caching</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">Sept 2025 – Present</div>
+          <div class="timeline-role">Project Lead</div>
+          <div class="timeline-org">The Boring Club — UW (Face Recognition & LiDAR Navigation)</div>
+          <ul class="timeline-bullets">
+            <li>Directed 15 student engineers across two hardware/ML projects, defining system architecture and weekly milestones</li>
+            <li>Made key design trade-offs for edge deployment on constrained hardware, achieving 95% accuracy on both systems</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">Apr 2024 – Sept 2025</div>
+          <div class="timeline-role">Research Assistant</div>
+          <div class="timeline-org">Sensors, Energy, and Automation Lab — UW</div>
+          <ul class="timeline-bullets">
+            <li>Built JavaScript automation tools for member tracking, reducing manual effort significantly</li>
+            <li>Collaborated with graduate researchers to prepare a research manuscript for CDC submission</li>
+            <li>Applied Python, Selenium, and data management to streamline research workflows</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">Jun 2021 – Jun 2024</div>
+          <div class="timeline-role">ML Researcher</div>
+          <div class="timeline-org">Burkitt's Lymphoma Fund for Africa — Seattle, WA</div>
+          <ul class="timeline-bullets">
+            <li>Developed CNNs for Burkitt's Lymphoma detection on histopathology slides, achieving 90%+ accuracy</li>
+            <li>Collaborated with UW, Fred Hutch, and Phenopath Labs — led to a first-author publication in Frontiers in Medicine</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">Jun 2023 – Sept 2023</div>
+          <div class="timeline-role">Software Development Intern</div>
+          <div class="timeline-org">Liberated Logic — Bothell, WA</div>
+          <ul class="timeline-bullets">
+            <li>Designed user-centered prototype website to improve early-stage product usability</li>
+            <li>Built wireframes and interactive prototypes in Figma; implemented with React</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-wrap">
+      <div class="section-label">03 / Projects</div>
+      <h2 class="section-title">Things I've Built</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-tech">
+            <span class="tag">C++</span><span class="tag">SystemVerilog</span><span class="tag">FPGA</span><span class="tag">LiDAR</span>
+          </div>
+          <div class="project-title">Autonomous LiDAR Maze Navigation</div>
+          <p class="project-desc">Autonomous car using LiDAR-based sensing and a wall-following algorithm. FPGA programmed in Verilog for directional control; targeting sub-30s maze completion at 95%+ accuracy.</p>
+        </div>
+
+        <div class="project-card">
+          <div class="project-tech">
+            <span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">PyTorch</span>
+          </div>
+          <div class="project-title">Real-Time Face Recognition</div>
+          <p class="project-desc">Deployed on a Jetson Nano to identify club members from a dataset of 50 faces. Live CV pipeline with OpenCV; 95% accuracy and 2ms latency under edge compute constraints.</p>
+        </div>
+
+        <div class="project-card">
+          <div class="project-tech">
+            <span class="tag">SystemVerilog</span><span class="tag">ModelSim</span>
+          </div>
+          <div class="project-title">Flappy Bird in Verilog</div>
+          <p class="project-desc">Full Flappy Bird implementation with gravity physics, LFSR obstacle generation, collision detection, and HEX score display — across 13+ modular Verilog components.</p>
+        </div>
+
+        <div class="project-card">
+          <div class="project-tech">
+            <span class="tag">Deep Learning</span><span class="tag">TensorFlow</span><span class="tag">OpenCV</span>
+          </div>
+          <div class="project-title">Golf Ball Detection AI</div>
+          <p class="project-desc">Fine-tuned computer vision model to detect and count golf balls from range images. Submitted to Microsoft Imagine Cup Junior for AI in sustainability.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-wrap">
+      <div class="section-label">04 / Skills</div>
+      <h2 class="section-title">Technical Toolkit</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group-title">Languages</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">C#</span>
+            <span class="skill-tag">SystemVerilog</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">ML / AI</div>
+          <div class="skill-tags">
+            <span class="skill-tag">PyTorch</span>
+            <span class="skill-tag">TensorFlow</span>
+            <span class="skill-tag">OpenCV</span>
+            <span class="skill-tag">Deep Learning</span>
+            <span class="skill-tag">Computer Vision</span>
+            <span class="skill-tag">CNN</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Hardware</div>
+          <div class="skill-tags">
+            <span class="skill-tag">FPGA</span>
+            <span class="skill-tag">Arduino</span>
+            <span class="skill-tag">LiDAR</span>
+            <span class="skill-tag">Jetson Nano</span>
+            <span class="skill-tag">ROS</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Web / Tools</div>
+          <div class="skill-tags">
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Django</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">TailwindCSS</span>
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Selenium</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PUBLICATION -->
+  <section id="publication">
+    <div class="section-wrap">
+      <div class="section-label">05 / Research</div>
+      <h2 class="section-title">Publication</h2>
+      <div class="pub-card">
+        <div class="pub-title">An AI-based, open access screening tool for early diagnosis of Burkitt Lymphoma</div>
+        <div class="pub-meta">Nair, A., et al. — Frontiers in Medicine, April 2024</div>
+        <a class="pub-link" href="https://www.frontiersin.org/articles/10.3389/fmed.2024.1345611/abstract" target="_blank">→ View on Frontiers in Medicine</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-wrap">
+      <div class="section-label" style="text-align:center">06 / Contact</div>
+      <h2 class="section-title" style="text-align:center">Let's Connect</h2>
+      <p class="contact-text">I'm actively looking for internship and research opportunities for Summer 2026. Feel free to reach out!</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:aashok2@uw.edu">Send an Email</a>
+        <a class="btn btn-outline" href="https://www.linkedin.com/in/akshay-nair" target="_blank">LinkedIn</a>
+        <a class="btn btn-outline" href="https://github.com/AkshayAshok11" target="_blank">GitHub</a>
+        <a class="btn btn-outline" href="tel:4255056953">425-505-6953</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Built with HTML &amp; CSS · Akshay Ashok Nair © 2025</span>
+  </footer>
+
+  <!-- SCROLL ANIMATIONS -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.timeline-item, .project-card').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
