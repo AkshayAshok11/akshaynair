@@ -16,15 +16,15 @@
    purple solder mask, ENIG gold pads, white silkscreen, copper
    ───────────────────────────────────────────────────────────── */
 :root{
-  --board:      #241038;   /* solder mask over FR4 */
-  --board-deep: #1B0B2B;   /* board edge / recesses */
-  --panel:      #2E1747;   /* raised pour */
-  --silk:       #F2EDF7;   /* silkscreen white */
-  --silk-dim:   #A491BC;   /* faded legend */
-  --silk-faint: #6E5B88;
+  --board:      #121214;   /* matte black solder mask over FR4 */
+  --board-deep: #0A0A0C;   /* board edge / recesses */
+  --panel:      #1C1C20;   /* raised pour */
+  --silk:       #F1F0EC;   /* silkscreen white */
+  --silk-dim:   #9C9A93;   /* faded legend */
+  --silk-faint: #6A6862;
   --gold:       #E8B84B;   /* ENIG pad */
   --copper:     #C87941;   /* exposed trace */
-  --rule:       rgba(242,237,247,.14);
+  --rule:       rgba(241,240,236,.13);
 
   --display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
   --mono: 'Martian Mono', ui-monospace, 'SF Mono', Menlo, monospace;
@@ -45,9 +45,12 @@ body{
   line-height:1.65;
   overflow-x:hidden;
   position:relative;
-  /* 0.1" perfboard grid */
-  background-image: radial-gradient(circle at 1px 1px, rgba(242,237,247,.055) 1px, transparent 0);
-  background-size: 26px 26px;
+  /* 0.1" perfboard grid + the low sheen a matte black mask catches */
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(241,240,236,.05) 1px, transparent 0),
+    radial-gradient(120% 70% at 50% 0%, rgba(255,255,255,.05), transparent 60%);
+  background-size: 26px 26px, 100% 100%;
+  background-attachment: scroll, fixed;
 }
 
 ::selection{background:var(--gold);color:var(--board-deep)}
@@ -184,7 +187,7 @@ section{position:relative;z-index:1}
 
 /* ── OVERVIEW ────────────────────────────────────────────── */
 .overview{display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(2rem,5vw,4.5rem);align-items:start}
-.prose p{margin-bottom:1.1rem;color:#DCD3E6;font-size:1.02rem;max-width:52ch}
+.prose p{margin-bottom:1.1rem;color:#D5D3CC;font-size:1.02rem;max-width:52ch}
 .prose p:last-child{margin-bottom:0}
 .prose strong{color:var(--silk);font-variation-settings:'wdth' 100,'wght' 600}
 .facts{border-top:1px solid var(--rule)}
@@ -216,7 +219,7 @@ section{position:relative;z-index:1}
 .role-body>div{overflow:hidden}
 .role-inner{padding:0 0 1.6rem 150px}
 .role-inner ul{list-style:none;display:flex;flex-direction:column;gap:.55rem;max-width:62ch}
-.role-inner li{position:relative;padding-left:1.15rem;font-size:.94rem;color:#CFC4DC}
+.role-inner li{position:relative;padding-left:1.15rem;font-size:.94rem;color:#C6C4BC}
 .role-inner li::before{content:'';position:absolute;left:0;top:.72em;width:6px;height:1px;background:var(--copper)}
 .chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1.1rem}
 .chip{
@@ -262,7 +265,7 @@ section{position:relative;z-index:1}
 .proj-body>div{overflow:hidden}
 .proj-inner{padding:0 0 1.75rem 69px;display:grid;grid-template-columns:1.4fr 1fr;gap:2.5rem}
 .proj-inner ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
-.proj-inner li{position:relative;padding-left:1.15rem;font-size:.94rem;color:#CFC4DC}
+.proj-inner li{position:relative;padding-left:1.15rem;font-size:.94rem;color:#C6C4BC}
 .proj-inner li::before{content:'';position:absolute;left:0;top:.72em;width:6px;height:1px;background:var(--copper)}
 .proj-side dt{margin-bottom:.5rem}
 .proj-side dd{margin-bottom:1.25rem}
@@ -281,7 +284,7 @@ section{position:relative;z-index:1}
 .tags{display:flex;flex-wrap:wrap;gap:.4rem}
 .tag{
   font-size:.85rem;padding:.22rem .6rem;border:1px solid var(--rule);border-radius:2px;
-  color:#CFC4DC;transition:all .16s;
+  color:#C6C4BC;transition:all .16s;
 }
 .cap:hover .tag{border-color:rgba(232,184,75,.35)}
 .tag:hover{color:var(--gold);border-color:var(--gold)}
